@@ -7,6 +7,7 @@ import helmet from 'helmet'
 import cors from 'cors'
 import { env } from '~/config/environment'
 import dbConnection from '~/config/mongodb'
+import { APIs_V1 } from '~/routes/v1'
 
 // config
 const app = express()
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 dbConnection()
 
 // V1 APIs routes
+app.use('/api/v1', APIs_V1)
 
 app.listen(env.APP_PORT, () => {
     console.log(`Server running at http://localhost:${env.APP_PORT}`)
