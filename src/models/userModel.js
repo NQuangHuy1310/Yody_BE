@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcrypt'
 
 const userSchema = new mongoose.Schema(
     {
@@ -55,5 +56,25 @@ const userSchema = new mongoose.Schema(
     },
     { timestamps: true }
 )
+
+userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
+    const user = await this.findOne({ user_email: email, _id: { $ne: excludeUserId } })
+    return !!user
+}
+
+userSchema.pre('save', async function (next) {
+    const user = this
+    const salt = await bcrypt.genSalt(10)
+    if (user.isModified('user_password')) {
+        user.user_password = await bcrypt.hash(user.user_password, salt)
+    }
+
+    next()
+})
+
+userSchema.method.isPasswordMath = async function (password) {
+    const user = this
+    return bcrypt.compare(password, user.user_password)
+}
 
 export const userModel = mongoose.model('User', userSchema)
