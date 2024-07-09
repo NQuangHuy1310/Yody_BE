@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import cors from 'cors'
 import { env } from '~/config/environment'
+import dbConnection from '~/config/mongodb'
 
 // config
 const app = express()
@@ -21,6 +22,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // connect to mongodb
+dbConnection()
 
 // V1 APIs routes
 
