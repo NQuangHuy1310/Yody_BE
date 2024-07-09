@@ -1,30 +1,28 @@
 import express from 'express'
-import { mapOrder } from '~/utils/sorts'
+import morgan from 'morgan'
+import bodyParser from 'body-parser'
+import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
+import cors from 'cors'
+import { env } from '~/config/environment'
 
+// config
 const app = express()
+app.use(
+    cors({
+        credentials: true
+    })
+)
+app.use(helmet())
+app.use(morgan('dev'))
+app.use(cookieParser())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-const hostname = 'localhost'
-const port = 8017
+// connect to mongodb
 
-app.get('/', (req, res) => {
-    // Test Absolute import mapOrder
-    console.log(
-        mapOrder(
-            [
-                { id: 'id-1', name: 'One' },
-                { id: 'id-2', name: 'Two' },
-                { id: 'id-3', name: 'Three' },
-                { id: 'id-4', name: 'Four' },
-                { id: 'id-5', name: 'Five' }
-            ],
-            ['id-5', 'id-4', 'id-2', 'id-3', 'id-1'],
-            'id'
-        )
-    )
-    res.end('<h1>Hello World!</h1><hr>')
-})
+// V1 APIs routes
 
-app.listen(port, hostname, () => {
-    // eslint-disable-next-line no-console
-    console.log('Server running at port 8017')
+app.listen(env.APP_PORT, () => {
+    console.log(`Server running at http://localhost:${env.APP_PORT}`)
 })
