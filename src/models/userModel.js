@@ -16,8 +16,7 @@ const userSchema = new mongoose.Schema(
         user_password: {
             type: String,
             required: true,
-            minLength: 8,
-            select: false
+            minLength: 8
         },
         user_role: {
             type: String,
@@ -33,7 +32,7 @@ const userSchema = new mongoose.Schema(
         },
         user_gender: {
             type: String,
-            enum: ['Male', 'Female', 'Other']
+            enum: ['Nam', 'Nữ', 'Khác']
         },
         is_blocked: {
             type: Boolean,
@@ -52,15 +51,19 @@ const userSchema = new mongoose.Schema(
                 ref: 'Address',
                 required: true
             }
-        ]
+        ],
+        is_active: {
+            type: Boolean,
+            default: true
+        }
     },
     { timestamps: true }
 )
-
-userSchema.statics.isEmailTaken = async function (email, excludeUserId) {
+userSchema.static('isEmailTaken', async function isEmailTaken(email, excludeUserId) {
     const user = await this.findOne({ user_email: email, _id: { $ne: excludeUserId } })
+
     return !!user
-}
+})
 
 userSchema.pre('save', async function (next) {
     const user = this
@@ -68,13 +71,13 @@ userSchema.pre('save', async function (next) {
     if (user.isModified('user_password')) {
         user.user_password = await bcrypt.hash(user.user_password, salt)
     }
-
     next()
 })
 
-userSchema.method.isPasswordMath = async function (password) {
+userSchema.methods.comparePassword = async function (user_password) {
     const user = this
-    return bcrypt.compare(password, user.user_password)
+
+    return bcrypt.compare(user_password, user.user_password)
 }
 
 export const userModel = mongoose.model('User', userSchema)
