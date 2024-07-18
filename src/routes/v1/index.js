@@ -1,6 +1,7 @@
 import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { authRouter } from '~/routes/v1/authRoute'
+import { proCatRouter } from '~/routes/v1/productCatRoute'
 
 const Router = express.Router()
 
@@ -11,5 +12,6 @@ Router.get('/status', (req, res) => {
 
 // APIs
 Router.use('/auth', authRouter)
+Router.use('/categories', proCatRouter)
 
 export const APIs_V1 = Router

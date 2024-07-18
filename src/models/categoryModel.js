@@ -6,7 +6,8 @@ const categorySchema = new mongoose.Schema(
             type: String,
             required: true,
             trim: true,
-            index: true
+            index: true,
+            unique: true
         },
         category_slug: {
             type: String,
@@ -25,13 +26,6 @@ const categorySchema = new mongoose.Schema(
             ref: 'Category',
             index: true
         },
-        category_children_id: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Category',
-                index: true
-            }
-        ],
         category_is_active: {
             type: Boolean,
             default: true,
@@ -42,5 +36,14 @@ const categorySchema = new mongoose.Schema(
         timestamps: true
     }
 )
+
+categorySchema.pre('save', async function (next) {
+    const oldParentId = this.isModified('category_parent_id') ? this.get('category_parent_id') : null
+    next()
+
+    if (oldParentId) {
+        await this.model('Category').updateOne({ _id: oldParentId }, { $set: { category_is_parent: true } })
+    }
+})
 
 export const categoryModel = mongoose.model('Category', categorySchema)
