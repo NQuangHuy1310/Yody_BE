@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { productCatService } from '~/services/productCatService'
+import { productCatService } from '~/services/productCatServices'
 import ApiError from '~/utils/ApiError'
 import { slugify } from '~/utils/fomatters'
 import validateMongodbId from '~/utils/validateMongodbId'

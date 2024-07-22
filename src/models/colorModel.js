@@ -14,6 +14,10 @@ const colorSchema = new mongoose.Schema(
         color_code: {
             type: String,
             required: true
+        },
+        color_is_active: {
+            type: Boolean,
+            default: true
         }
     },
     { timestamps: true }

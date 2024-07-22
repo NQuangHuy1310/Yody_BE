@@ -35,12 +35,10 @@ const productSchema = new mongoose.Schema(
         },
         product_sold: {
             type: Number,
-            required: true,
             default: 0
         },
         product_available: {
             type: Number,
-            required: true,
             default: 0
         },
         product_warranty: {
@@ -82,5 +80,6 @@ const productSchema = new mongoose.Schema(
         timestamps: true
     }
 )
+// productSchema.index({ product_name: 'text', product_description: 'text' })
 
 export const productModel = mongoose.model('Product', productSchema)

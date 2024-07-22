@@ -89,9 +89,9 @@ const getAllUser = async (page = 1, limit = 10) => {
     const skip = (page - 1) * limit
     const userCount = await userModel.countDocuments({
         user_role: 'user',
-        is_blocked: false,
-        is_active: true
+        is_blocked: false
     })
+
     const totalPages = Math.ceil(userCount / limit)
     const users = await userModel
         .find({ user_role: 'user', is_blocked: false })
@@ -117,8 +117,7 @@ const getAllAdmin = async (page = 1, limit = 10) => {
     const skip = (page - 1) * limit
     const userCount = await userModel.countDocuments({
         user_role: 'admin',
-        is_blocked: false,
-        is_active: true
+        is_blocked: false
     })
     const totalPages = Math.ceil(userCount / limit)
     const users = await userModel
