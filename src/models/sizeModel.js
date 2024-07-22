@@ -10,6 +10,10 @@ const sizeSchema = new mongoose.Schema(
         size_code: {
             type: String,
             required: true
+        },
+        size_is_active: {
+            type: Boolean,
+            default: true
         }
     },
     { timestamps: true }
