@@ -1,5 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { productServices } from '~/services/productServices'
+import { variantServices } from '~/services/variantsServices'
 import ApiError from '~/utils/ApiError'
 import { slugify } from '~/utils/fomatters'
 import validateMongodbId from '~/utils/validateMongodbId'
@@ -27,10 +28,14 @@ const productController = {
             const { id } = req.params
             validateMongodbId(id)
             const product = await productServices.getProduct(id)
+            const variants = await variantServices.getVariantsByProductId(id)
 
             res.status(StatusCodes.OK).json({
                 message: 'Lấy sản phẩm thành công!',
-                product_data: product
+                product_data: {
+                    product,
+                    variants
+                }
             })
         } catch (error) {
             next(new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Có lỗi phía server, vui lòng thử lại sau!'))

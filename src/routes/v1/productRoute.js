@@ -6,10 +6,13 @@ import { validateProductData } from '~/validations/productValidation'
 const Router = express.Router()
 
 Router.post('/', authMiddleware, isAdmin, validateProductData, productController.createProduct)
-Router.get('/search', productController.searchProductByName)
-Router.get('/', productController.getProducts)
-Router.get('/:id', productController.getProduct)
-Router.put('/:id', authMiddleware, isAdmin, validateProductData, productController.updateProduct)
-Router.delete('/:id', authMiddleware, isAdmin, productController.hiddenProduct)
+    .get('/search', productController.searchProductByName)
+    .get('/', productController.getProducts)
+    .get('/hidden', authMiddleware, isAdmin, productController.getProductHidden)
+    .get('/:id', productController.getProduct)
+    .put('/:id', authMiddleware, isAdmin, validateProductData, productController.updateProduct)
+    .put('/restore/:id', authMiddleware, isAdmin, productController.restoreProduct)
+    .delete('/hidden/:id', authMiddleware, isAdmin, productController.hiddenProduct)
+    .delete('/id', authMiddleware, isAdmin, productController.deleteProduct)
 
 export const productRouter = Router
