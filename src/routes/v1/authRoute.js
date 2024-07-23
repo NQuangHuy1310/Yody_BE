@@ -1,25 +1,25 @@
 import express from 'express'
-import { authController } from '~/controllers/authController'
+import { authControllers } from '~/controllers/authController'
 import { authMiddleware, isAdmin } from '~/middlewares/authMiddleware'
 import { validateLoginData, validateRegisterData } from '~/validations/authValidation'
 
 const Router = express.Router()
 
 // Random user data
-Router.get('/generate-fake-data', authController.createRandomUser)
+Router.get('/generate-fake-data', authControllers.createRandomUser)
 
 //user
-Router.post('/register', validateRegisterData, authController.authRegister)
-Router.post('/login', validateLoginData, authController.authLogin)
-Router.post('/logout', authMiddleware, authController.authLogout)
-Router.get('/account/me', authMiddleware, authController.getMe)
-Router.put('/account/me', authMiddleware, authController.updateMe)
+Router.post('/register', validateRegisterData, authControllers.authRegister)
+    .post('/login', validateLoginData, authControllers.authLogin)
+    .post('/logout', authMiddleware, authControllers.authLogout)
+    .get('/account/me', authMiddleware, authControllers.getMe)
+    .put('/account/me', authMiddleware, authControllers.updateMe)
 
 // Admin
-Router.get('/users', authController.getUsers)
-Router.get('/admins', authMiddleware, isAdmin, authController.getAdmins)
-Router.patch('/:id/block', authMiddleware, isAdmin, authController.blockUser)
-Router.patch('/:id/unblock', authMiddleware, isAdmin, authController.unBlockUser)
-Router.delete('/:id', authMiddleware, isAdmin, authController.hiddenUser)
+Router.get('/users', authControllers.getUsers)
+    .get('/admins', authMiddleware, isAdmin, authControllers.getAdmins)
+    .patch('/:id/block', authMiddleware, isAdmin, authControllers.blockUser)
+    .patch('/:id/unblock', authMiddleware, isAdmin, authControllers.unBlockUser)
+    .delete('/:id', authMiddleware, isAdmin, authControllers.hiddenUser)
 
 export const authRouter = Router
