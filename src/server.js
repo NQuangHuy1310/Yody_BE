@@ -12,11 +12,7 @@ import { errorHandlingMiddleware } from '~/middlewares/errorHandlingDiddleware'
 
 // config
 const app = express()
-app.use(
-    cors({
-        credentials: true
-    })
-)
+app.use(cors())
 app.use(helmet())
 app.use(morgan('dev'))
 app.use(cookieParser())
