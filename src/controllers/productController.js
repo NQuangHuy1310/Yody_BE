@@ -5,7 +5,7 @@ import ApiError from '~/utils/ApiError'
 import { slugify } from '~/utils/fomatters'
 import validateMongodbId from '~/utils/validateMongodbId'
 
-const productController = {
+const productControllers = {
     createProduct: async (req, res, next) => {
         try {
             const slug = slugify(req.body.product_name)
@@ -144,4 +144,4 @@ const productController = {
     }
 }
 
-export { productController }
+export { productControllers }

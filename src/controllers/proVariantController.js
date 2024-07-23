@@ -4,7 +4,7 @@ import { variantServices } from '~/services/variantsServices'
 import ApiError from '~/utils/ApiError'
 import validateMongodbId from '~/utils/validateMongodbId'
 
-const proVariantController = {
+const proVariantControllers = {
     createVariant: async (req, res, next) => {
         try {
             const variantCode = uuidv4().replace(/-/g, '').slice(0, 8).toUpperCase()
@@ -106,4 +106,4 @@ const proVariantController = {
     }
 }
 
-export { proVariantController }
+export { proVariantControllers }
