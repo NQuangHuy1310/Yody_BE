@@ -4,6 +4,7 @@ import { authRouter } from '~/routes/v1/authRoute'
 import { colorRoute } from '~/routes/v1/colorRoute'
 import { proCatRouter } from '~/routes/v1/productCatRoute'
 import { productRouter } from '~/routes/v1/productRoute'
+import { proVariantRouter } from '~/routes/v1/proVariantRoute'
 import { sizeRoute } from '~/routes/v1/sizeRoute'
 import { uploadRouter } from '~/routes/v1/uploadRoute'
 
@@ -21,5 +22,6 @@ Router.use('/upload', uploadRouter)
 Router.use('/colors', colorRoute)
 Router.use('/sizes', sizeRoute)
 Router.use('/products', productRouter)
+Router.use('/variants', proVariantRouter)
 
 export const APIs_V1 = Router

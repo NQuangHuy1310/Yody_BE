@@ -15,13 +15,11 @@ const variantSchema = new mongoose.Schema(
         product_color: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Color',
-            required: true,
             index: true
         },
         product_size: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Size',
-            required: true,
             index: true
         },
         variant_product_quantity: {
