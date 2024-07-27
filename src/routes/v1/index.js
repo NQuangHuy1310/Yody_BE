@@ -8,6 +8,7 @@ import { productRouter } from '~/routes/v1/productRoute'
 import { proVariantRouter } from '~/routes/v1/proVariantRoute'
 import { sizeRoute } from '~/routes/v1/sizeRoute'
 import { uploadRouter } from '~/routes/v1/uploadRoute'
+import { voucherRouter } from '~/routes/v1/voucherRoute'
 
 const Router = express.Router()
 
@@ -25,5 +26,6 @@ Router.use('/sizes', sizeRoute)
 Router.use('/products', productRouter)
 Router.use('/variants', proVariantRouter)
 Router.use('/address', addressRouter)
+Router.use('/voucher', voucherRouter)
 
 export const APIs_V1 = Router

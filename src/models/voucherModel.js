@@ -12,7 +12,8 @@ const voucherSchema = new mongoose.Schema(
         voucher_discount: {
             type: Number,
             required: true,
-            default: 0
+            default: 0,
+            index: true
         },
         voucher_quantity: {
             type: Number,
@@ -40,5 +41,7 @@ const voucherSchema = new mongoose.Schema(
         timestamps: true
     }
 )
+
+voucherSchema.index({ voucher_name: 'text' })
 
 export const voucherModel = mongoose.model('Voucher', voucherSchema)
