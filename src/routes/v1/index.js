@@ -2,6 +2,7 @@ import express from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { addressRouter } from '~/routes/v1/addressRoute'
 import { authRouter } from '~/routes/v1/authRoute'
+import { cartRouter } from '~/routes/v1/cartRoute'
 import { colorRoute } from '~/routes/v1/colorRoute'
 import { proCatRouter } from '~/routes/v1/productCatRoute'
 import { productRouter } from '~/routes/v1/productRoute'
@@ -27,5 +28,6 @@ Router.use('/products', productRouter)
 Router.use('/variants', proVariantRouter)
 Router.use('/address', addressRouter)
 Router.use('/voucher', voucherRouter)
+Router.use('/cart', cartRouter)
 
 export const APIs_V1 = Router
