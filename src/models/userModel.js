@@ -45,13 +45,6 @@ const userSchema = new mongoose.Schema(
             default: false
         },
         refresh_token: String,
-        user_address: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Address',
-                required: true
-            }
-        ],
         is_active: {
             type: Boolean,
             default: true
